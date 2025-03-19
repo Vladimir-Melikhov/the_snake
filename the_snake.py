@@ -1,6 +1,8 @@
 from random import randint
 from typing import List, Tuple
+
 import pygame
+
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -28,8 +30,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 pygame.display.set_caption('Змейка')  # Заголовок окна
 clock = pygame.time.Clock()  # Настройка времени
 
-class GameObject:
 
+class GameObject:
     def __init__(self) -> None:
         self.position: Tuple[int, int] = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.body_color: Tuple[int, int, int] = None
@@ -37,8 +39,8 @@ class GameObject:
     def draw(self) -> None:
         pass
 
-class Apple(GameObject):
 
+class Apple(GameObject):
     def __init__(self) -> None:
         super().__init__()
         self.body_color = APPLE_COLOR
@@ -55,8 +57,8 @@ class Apple(GameObject):
             randint(0, GRID_HEIGHT - 1) * GRID_SIZE
         )
 
-class Snake(GameObject):
 
+class Snake(GameObject):
     def __init__(self) -> None:
         super().__init__()
         self.body_color = SNAKE_COLOR
@@ -81,7 +83,7 @@ class Snake(GameObject):
             (head_x + self.direction[0] * GRID_SIZE) % SCREEN_WIDTH,
             (head_y + self.direction[1] * GRID_SIZE) % SCREEN_HEIGHT
         )
-        self.positions.insert(0, new_head)  
+        self.positions.insert(0, new_head)
 
         if not ate_apple:
             self.positions.pop()
@@ -93,6 +95,7 @@ class Snake(GameObject):
         self.positions = [self.position]
         self.direction = RIGHT
         self.next_direction = None
+
 
 def handle_keys(snake: Snake) -> None:
     for event in pygame.event.get():
@@ -109,6 +112,7 @@ def handle_keys(snake: Snake) -> None:
             elif event.key == pygame.K_RIGHT and snake.direction != LEFT:
                 snake.next_direction = RIGHT
 
+
 def main() -> None:
     pygame.init()
     apple = Apple()
@@ -120,11 +124,9 @@ def main() -> None:
         snake.update_direction()
 
         ate_apple = snake.get_head_position() == apple.position
-
         if ate_apple:
             apple.randomize_position()
 
-       
         snake.move(ate_apple=ate_apple)
 
         if snake.get_head_position() in snake.positions[1:]:
@@ -134,6 +136,7 @@ def main() -> None:
         apple.draw()
         snake.draw()
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
