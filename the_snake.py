@@ -2,7 +2,6 @@ from random import randint
 from typing import List, Tuple
 import pygame
 
-
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
@@ -134,4 +133,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-    
