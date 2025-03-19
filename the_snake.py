@@ -30,7 +30,8 @@ class GameObject:
 
     def __init__(self) -> None:
         """Инициализация объекта."""
-        self.position: Tuple[int, int] = (SCREEN_WIDTH //2, SCREEN_HEIGHT // 2)
+        self.position: Tuple[int, int] = (SCREEN_WIDTH // 2, 
+                                          SCREEN_HEIGHT // 2)
         self.body_color: Tuple[int, int, int] = None
 
     def draw(self) -> None:
@@ -153,4 +154,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
- 
+
