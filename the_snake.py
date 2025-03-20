@@ -1,9 +1,8 @@
+import sys
 from random import randint
 from typing import List, Tuple
 
-import sys
 import pygame
-
 
 # Константы
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
