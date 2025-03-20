@@ -61,7 +61,9 @@ class Apple(GameObject):
         """Отрисовка яблока на экране."""
         self.draw_cell(self.position, self.body_color)
 
-    def randomize_position(self, occupied_positions: List[Tuple[int, int]] = None) -> None:
+    def randomize_position(self, 
+                           occupied_positions: List[Tuple[int, int]]
+                           = None) -> None:
         """Установка случайной позиции для яблока."""
         while True:
             self.position = (
