@@ -45,10 +45,9 @@ class GameObject:
         rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-        
+
     def draw(self) -> None:
         """Метод Draw"""
-
 
 
 class Apple(GameObject):
