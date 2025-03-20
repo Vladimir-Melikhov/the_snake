@@ -1,5 +1,6 @@
 from random import randint
 from typing import List, Tuple
+
 import pygame
 import sys
 
