@@ -61,16 +61,16 @@ class Apple(GameObject):
         """Отрисовка яблока на экране."""
         self.draw_cell(self.position, self.body_color)
 
-    def randomize_position(self) -> None:
+    def randomize_position(self, occupied_positions: List[Tuple[int, int]] = None) -> None:
         """Установка случайной позиции для яблока."""
         while True:
             self.position = (
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                 randint(0, GRID_HEIGHT - 1) * GRID_SIZE
             )
-            if not self.occupied_positions:
+            if not occupied_positions:
                 break
-            if self.position not in self.occupied_positions:
+            if self.position not in occupied_positions:
                 break
 
 
@@ -147,10 +147,12 @@ def main() -> None:
 
         if snake.get_head_position() == apple.position:
             apple.randomize_position(occupied_positions=snake.positions)
-        elif snake.get_head_position() in snake.positions[1:]:
-            snake.reset()
+            snake.move(ate_apple=True)
+        else:
+            snake.move()
 
-        snake.move(ate_apple=snake.get_head_position() == apple.position)
+        if snake.get_head_position() in snake.positions[1:]:
+            snake.reset()
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
