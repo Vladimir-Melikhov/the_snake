@@ -53,11 +53,9 @@ class GameObject:
 class Apple(GameObject):
     """Класс для яблока, которое змейка может съесть."""
 
-    def __init__(self, body_color: Tuple[int, int, int] = APPLE_COLOR,
-                 occupied_positions: List[Tuple[int, int]] = None) -> None:
+    def __init__(self, body_color: Tuple[int, int, int] = APPLE_COLOR) -> None:
         """Инициализация яблока."""
         super().__init__(body_color=body_color)
-        self.occupied_positions = occupied_positions
         self.randomize_position()
 
     def draw(self) -> None:
@@ -73,9 +71,9 @@ class Apple(GameObject):
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                 randint(0, GRID_HEIGHT - 1) * GRID_SIZE
             )
-            if not occupied_positions:
-                break
-            if self.position not in occupied_positions:
+            if (not occupied_positions
+                    or self.position not in occupied_positions):
+
                 break
 
 
@@ -143,7 +141,7 @@ def main() -> None:
     """Основная функция игры."""
     pygame.init()
     snake = Snake()
-    apple = Apple(occupied_positions=snake.positions)
+    apple = Apple()
 
     while True:
         clock.tick(SPEED)
@@ -153,11 +151,10 @@ def main() -> None:
         if snake.get_head_position() == apple.position:
             apple.randomize_position(occupied_positions=snake.positions)
             snake.move(ate_apple=True)
+        elif snake.get_head_position() in snake.positions[4:]:
+            snake.reset()
         else:
             snake.move()
-
-        if snake.get_head_position() in snake.positions[1:]:
-            snake.reset()
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
