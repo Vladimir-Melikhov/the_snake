@@ -53,10 +53,11 @@ class GameObject:
 class Apple(GameObject):
     """Класс для яблока, которое змейка может съесть."""
 
-    def __init__(self, body_color: Tuple[int, int, int] = APPLE_COLOR) -> None:
+    def __init__(self, body_color: Tuple[int, int, int] = APPLE_COLOR,
+                 occupied_positions: List[Tuple[int, int]] = None) -> None:
         """Инициализация яблока."""
         super().__init__(body_color=body_color)
-        self.randomize_position()
+        self.randomize_position(occupied_positions)
 
     def draw(self) -> None:
         """Отрисовка яблока на экране."""
@@ -73,7 +74,6 @@ class Apple(GameObject):
             )
             if (not occupied_positions
                     or self.position not in occupied_positions):
-
                 break
 
 
@@ -141,7 +141,7 @@ def main() -> None:
     """Основная функция игры."""
     pygame.init()
     snake = Snake()
-    apple = Apple()
+    apple = Apple(occupied_positions=snake.positions)
 
     while True:
         clock.tick(SPEED)
@@ -162,5 +162,5 @@ def main() -> None:
         pygame.display.update()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
